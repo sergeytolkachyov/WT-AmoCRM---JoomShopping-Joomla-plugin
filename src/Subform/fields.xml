@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+    <field addfieldprefix="Webtolk\Amocrm\Fields"
+           type="Leadcustomfieldslist"
+           name="amocrm_field_id"
+           label="PLG_WT_AMOCRM_JSHOPPING_LEAD_FIELD"/>
+    <field name="storefield"
+           type="list"
+           multiple="true"
+           label="PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_FIELD">
+        <option value="order_number">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_ORDER_NUMBER</option>
+        <option value="user_id">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_USER_ID</option>
+        <option value="order_total">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_ORDER_TOTAL</option>
+        <option value="order_subtotal">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_ORDER_SUBTOTAL</option>
+        <option value="shipping_method_id">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_ORDER_SHIPPING_NAME</option>
+        <option value="order_shipping">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_ORDER_SHIPPING</option>
+        <option value="order_payment">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_ORDER_PAYMENT</option>
+        <option value="payment_method_id">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_ORDER_PAYMENT_NAME</option>
+        <option value="order_package">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_ORDER_PACKAGE</option>
+        <option value="order_status">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_ORDER_STATUS</option>
+
+        <option value="coupon_id">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_ORDER_COUPON_CODE</option>
+        <option value="order_discount">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_ORDER_DISCOUNT</option>
+        <option value="order_add_info">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_ORDER_COMMENT</option>
+        <option value="f_name">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_ORDER_NAME</option>
+        <option value="l_name">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_ORDER_L_NAME</option>
+        <option value="m_name">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_ORDER_M_NAME</option>
+        <option value="firma_name">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_ORDER_COMPANY_NAME</option>
+        <option value="client_type">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_ORDER_CLIENT_TYPE</option>
+        <option value="firma_code">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_ORDER_FIRMA_CODE</option>
+        <option value="tax_number">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_ORDER_TAX_NUMBER</option>
+        <option value="email">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_ORDER_EMAIL</option>
+        <option value="birthday">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_BIRTHDAY</option>
+
+        <option value="country">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_COUNTRY</option>
+        <option value="zip">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_ZIP</option>
+        <option value="state">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_STATE</option>
+        <option value="city">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_CITY</option>
+        <option value="street">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_STREET</option>
+        <option value="street_nr">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_STREET_NR</option>
+        <option value="home">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_HOME</option>
+        <option value="apartment">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_APARTMENT</option>
+        <option value="phone">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_PHONE</option>
+        <option value="mobil_phone">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_MOBILE_PHONE</option>
+        <option value="fax">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_FAX</option>
+        <option value="ext_field_1">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_EXT_FIELD_1</option>
+        <option value="ext_field_2">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_EXT_FIELD_2</option>
+        <option value="ext_field_3">PLG_WT_AMOCRM_JSHOPPING_LEAD_JSHOPPING_EXT_FIELD_3</option>
+        <option value="wt_sm_otpravka_pochta_ru_barcode">PLG_WT_AMOCRM_JSHOPPING_WT_SM_OTPRAVKA_POCHTA_RU_BARCODE</option>
+    </field>
+</form>

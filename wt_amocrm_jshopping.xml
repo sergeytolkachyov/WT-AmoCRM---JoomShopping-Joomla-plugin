@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<extension type="plugin" method="upgrade" group="system">
+	<name>System - WT Amo CRM - JoomShopping</name>
+	<author>Sergey Tolkachyov</author>
+	<authorEmail>info@web-tolk.ru</authorEmail>
+	<authorUrl>https://web-tolk.ru/</authorUrl>
+	<creationDate>19/01/2023</creationDate>
+	<copyright>Sergey Tolkachyov</copyright>
+	<license>GNU General Public License v3.0</license>
+	<version>1.0.0</version>
+	<description>PLG_WT_AMOCRM_JSHOPPING_DESC</description>
+	<namespace path="src">Joomla\Plugin\System\Wt_amocrm_jshopping</namespace>
+	<scriptfile>script.php</scriptfile>
+	<files>
+		<folder plugin="wt_amocrm_jshopping">src</folder>
+		<folder>services</folder>
+		<folder>language</folder>
+	</files>
+	<media folder="media" destination="plg_system_wt_amocrm_jshopping">
+        <folder>js</folder>
+    </media>
+	<languages folder="language" client="administrator">
+		<language tag="en-GB">en-GB/plg_system_wt_amocrm_jshopping.ini</language>
+		<language tag="ru-RU">ru-RU/plg_system_wt_amocrm_jshopping.ini</language>
+		<language tag="en-GB">en-GB/plg_system_wt_amocrm_jshopping.sys.ini</language>
+		<language tag="ru-RU">ru-RU/plg_system_wt_amocrm_jshopping.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field addfieldprefix="Joomla\Plugin\System\Wt_amocrm_jshopping\Fields"
+					   type="plugininfo"
+					   name="plugininfo"/>
+				<field addfieldprefix="Webtolk\Amocrm\Fields" type="accountinfo" name="accountinfo"/>
+				<field type="text"
+					   name="order_name_prefix"
+					   label="PLG_WT_AMOCRM_JSHOPPING_ORDER_NAME_PREFIX"
+					   description="PLG_WT_AMOCRM_JSHOPPING_ORDER_NAME_PREFIX_DESC"/>
+				<field type="radio"
+					   name="order_trigger_event"
+					   label="PLG_WT_AMOCRM_JSHOPPING_TRIGGER_EVENT"
+					   description="PLG_WT_AMOCRM_JSHOPPING_TRIGGER_EVENT_DESC"
+					   default="always" class="btn-group btn-group-yesno">
+					<option value="always">PLG_WT_AMOCRM_JSHOPPING_TRIGGER_EVENT_ALWAYS</option>
+					<option value="successful_payment">PLG_WT_AMOCRM_JSHOPPING_TRIGGER_EVENT_SUCCESSFUL_PAYMENT
+					</option>
+				</field>
+				<field name="order_trigger_event_desc"
+					   type="note"
+					   description="PLG_WT_AMOCRM_JSHOPPING_TRIGGER_EVENT_DESC"
+					   class="alert alert-info"
+					   showon="order_trigger_event:successful_payment"/>
+
+				<field addfieldprefix="Webtolk\Amocrm\Fields"
+					   type="Leadspipelineslist"
+					   name="pipeline_id"
+					   label="PLG_WT_AMOCRM_JSHOPPING_PIPELINE_ID"
+					   description="PLG_WT_AMOCRM_JSHOPPING_PIPELINE_ID_DESC"
+					   filter="integer"/>
+				<field addfieldprefix="Webtolk\Amocrm\Fields"
+					   type="Leadstagslist"
+					   name="lead_tag_id"
+					   limit="250"
+					   label="PLG_WT_AMOCRM_JSHOPPING_LEAD_TAG_ID"
+					   description="PLG_WT_AMOCRM_JSHOPPING_LEAD_TAG_ID_DESC"/>
+				<field type="note" label="PLG_WT_AMOCRM_JSHOPPING_UTM_HEADER" description="PLG_WT_AMOCRM_JSHOPPING_UTM"
+					   class="alert alert-info"/>
+			   <field type="radio"
+					   name="use_utm_js_script"
+					   label="PLG_WT_AMOCRM_JSHOPPING_USE_UTM_JS_SCRIPT"
+					   description="PLG_WT_AMOCRM_JSHOPPING_USE_UTM_JS_SCRIPT_DESC"
+					   default="1" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field type="radio"
+					   name="debug"
+					   label="PLG_WT_AMOCRM_JSHOPPING_DEBUG"
+					   description="PLG_WT_AMOCRM_JSHOPPING_DEBUG_DESC"
+					   default="0" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+			</fieldset>
+			<fieldset name="amocrm_jshopping_lead_settings" label="PLG_WT_AMOCRM_JSHOPPING_LEAD_SETTINGS"
+					  description="PLG_WT_AMOCRM_JSHOPPING_LEAD_SUBFORM_DESC">
+				<field name="fields"
+					   label="PLG_WT_AMOCRM_JSHOPPING_LEAD_SUBFORM"
+					   type="subform"
+					   layout="joomla.form.field.subform.repeatable-table"
+					   formsource="plugins/system/wt_amocrm_jshopping/src/Subform/fields.xml"
+					   multiple="true"
+					   buttons="add,remove"
+					   max="40"
+					   parentclass="stack"
+				/>
+
+			</fieldset>
+			<fieldset name="amocrm_jshopping_product_settings"
+					  label="PLG_WT_AMOCRM_JSHOPPING_PRODUCT_SETTINGS"
+					  description="PLG_WT_AMOCRM_JSHOPPING_PRODUCT_SETTINGS_DESC">
+				<field type="radio"
+					   name="amocrm_note_add_order_add_info"
+					   label="PLG_WT_AMOCRM_JSHOPPING_AMOCRM_NOTE_ADD_ORDER_ADD_INFO"
+					   description="PLG_WT_AMOCRM_JSHOPPING_AMOCRM_NOTE_ADD_ORDER_ADD_INFO_DESC"
+					   default="1"
+					   class="btn-group btn-group-yesno"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field type="radio"
+					   name="amocrm_note_order_items"
+					   label="PLG_WT_AMOCRM_JSHOPPING_AMOCRM_NOTE_ORDER_ITEMS"
+					   description="PLG_WT_AMOCRM_JSHOPPING_AMOCRM_NOTE_ORDER_ITEMS_DESC"
+					   default="1"
+					   class="btn-group btn-group-yesno"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+			</fieldset>
+		</fields>
+	</config>
+	<updateservers>
+		<server type="extension" name="WebTolk Update Server - WT AmoCRM - JoomShopping">
+			https://web-tolk.ru/component/swjprojects/jupdate.html?element=wt_amocrm_jshopping
+		</server>
+	</updateservers>
+</extension>
