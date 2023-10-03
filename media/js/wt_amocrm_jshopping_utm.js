@@ -1,3 +1,11 @@
+/**
+ * @package     WT Amo CRM JoomShopping
+ * @version     1.0.1
+ * @Author      Sergey Tolkachyov, https://web-tolk.ru
+ * @copyright   Copyright (C) 2023 Sergey Tolkachyov
+ * @license     GNU/GPL http://www.gnu.org/licenses/gpl-2.0.html
+ * @since       1.0.0
+ */
 document.addEventListener('DOMContentLoaded', function () {
     let utms = [
 		'utm_source',
