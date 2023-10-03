@@ -4,10 +4,10 @@
 	<author>Sergey Tolkachyov</author>
 	<authorEmail>info@web-tolk.ru</authorEmail>
 	<authorUrl>https://web-tolk.ru/</authorUrl>
-	<creationDate>19/01/2023</creationDate>
+	<creationDate>03/10/2023</creationDate>
 	<copyright>Sergey Tolkachyov</copyright>
 	<license>GNU General Public License v3.0</license>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<description>PLG_WT_AMOCRM_JSHOPPING_DESC</description>
 	<namespace path="src">Joomla\Plugin\System\Wt_amocrm_jshopping</namespace>
 	<scriptfile>script.php</scriptfile>
