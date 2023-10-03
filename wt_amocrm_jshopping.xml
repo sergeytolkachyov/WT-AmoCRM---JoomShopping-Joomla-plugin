@@ -129,4 +129,5 @@
 			https://web-tolk.ru/component/swjprojects/jupdate.html?element=wt_amocrm_jshopping
 		</server>
 	</updateservers>
+	<changelogurl>https://web-tolk.ru/jchangelog?element=wt_amocrm_jshopping</changelogurl>
 </extension>
