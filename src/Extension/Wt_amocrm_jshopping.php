@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     WT Amo CRM JoomShopping
- * @version     1.0.1
+ * @package    System - WT Amo CRM JoomShopping
+ * @version     1.1.0
  * @Author      Sergey Tolkachyov, https://web-tolk.ru
  * @copyright   Copyright (C) 2022 Sergey Tolkachyov
  * @license     GNU/GPL http://www.gnu.org/licenses/gpl-2.0.html
@@ -17,8 +17,15 @@ use Joomla\CMS\Log\Log;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\Component\Jshopping\Site\Helper\Helper;
+use Joomla\Component\Jshopping\Site\Lib\JSFactory;
 use Joomla\Event\SubscriberInterface;
 use Webtolk\Amocrm\Amocrm;
+use function is_countable;
+use function count;
+use function floatval;
+use function urldecode;
+use function strtoupper;
 
 class Wt_amocrm_jshopping extends CMSPlugin implements SubscriberInterface
 {
@@ -84,8 +91,7 @@ class Wt_amocrm_jshopping extends CMSPlugin implements SubscriberInterface
 	 */
 	public function onAfterCreateOrderFull($event): void
 	{
-		$order = $event->getArgument(0);
-		// $cart = $event->getArgument(1);
+		[$order, $cart] = $event->getArguments();
 
 		if ($this->params->get('order_trigger_event', 'always') == 'always') {
 			$this->sendOrderToAmocrm($order->order_id);
@@ -114,7 +120,7 @@ class Wt_amocrm_jshopping extends CMSPlugin implements SubscriberInterface
 		// Берем сессию только в HTML фронте
 		$session = ($this->getApplication() instanceof SessionAwareWebApplicationInterface ? $this->getApplication()->getSession() : null);
 
-		$order = \JSFactory::getTable('order', 'jshop');
+		$order = JSFactory::getTable('order', 'jshop');
 		$order->load($orderId);
 		$orderItems = $order->getAllItems();
 
@@ -335,9 +341,35 @@ class Wt_amocrm_jshopping extends CMSPlugin implements SubscriberInterface
 				'created_by' => 0, // 0 - создал робот
 				'note_type' => 'common',
 				'params' => [
-					'text' => Text::_('PLG_WT_AMOCRM_JSHOPPING_AMOCRM_NOTE_ORDER_TOTAL_API_PREPEND') . \JSHelper::formatprice($order->order_total) . Text::_('PLG_WT_AMOCRM_JSHOPPING_AMOCRM_NOTE_ORDER_TOTAL_API_APPEND'),
+					'text' => Text::_('PLG_WT_AMOCRM_JSHOPPING_AMOCRM_NOTE_ORDER_TOTAL_API_PREPEND') . Helper::formatprice($order->order_total) . Text::_('PLG_WT_AMOCRM_JSHOPPING_AMOCRM_NOTE_ORDER_TOTAL_API_APPEND'),
 				]
 			];
+
+			$payment_and_shipping_info = '';
+			if (!empty($payment_name = $order->getPaymentName()))
+			{
+				$payment_and_shipping_info .= Text::sprintf('PLG_WT_AMOCRM_JSHOPPING_AMOCRM_NOTE_ORDER_PAYMENT', $payment_name) . ' ';
+			}
+
+			if (!empty($shipping_name = $order->getShippingName()))
+			{
+				$payment_and_shipping_info .= Text::sprintf('PLG_WT_AMOCRM_JSHOPPING_AMOCRM_NOTE_ORDER_SHIPPING', $shipping_name) . ' ';
+				if (!empty($order->order_shipping) && floatval($order->order_shipping) > 0)
+				{
+					$payment_and_shipping_info .= Text::sprintf('PLG_WT_AMOCRM_JSHOPPING_AMOCRM_NOTE_ORDER_SHIPPING_SUMM', Helper::formatprice($order->order_shipping));
+				}
+			}
+			if (!empty($payment_and_shipping_info))
+			{
+				// Доставка и оплата в комментарий
+				$notes[] = [
+					'created_by' => 0, // 0 - создал робот
+					'note_type'  => 'common',
+					'params'     => [
+						'text' => $payment_and_shipping_info,
+					]
+				];
+			}
 
 			if (count($orderItems) > 0 && $this->params->get('amocrm_note_order_items', 1) == 1) {
 				$products_for_comment = '';
@@ -497,8 +529,11 @@ class Wt_amocrm_jshopping extends CMSPlugin implements SubscriberInterface
 	 */
 	public function onBeforeDisplayCheckoutFinish($event): void
 	{
-		// $text = $event->getArgument(0);
-		$order_id = $event->getArgument(1);
+		/**
+		 * @var string $text     статический текст для страницы Завершения заказа из настроек JoomShopping
+		 * @var int    $order_id id заказа
+		 */
+		[$text, $order_id] = $event->getArguments();
 
 		if ($this->params->get('order_trigger_event', 'always') == 'successful_payment') {
 			$this->sendOrderToAmocrm($order_id);
@@ -519,13 +554,13 @@ class Wt_amocrm_jshopping extends CMSPlugin implements SubscriberInterface
 	public function saveToLog(string $data, string $priority = 'NOTICE'): void
 	{
 		Log::addLogger(
-			array(
+			[
 				// Sets file name
 				'text_file' => 'plg_system_wt_amocrm_jshopping.log.php',
-			),
+			],
 			// Sets all but DEBUG log level messages to be sent to the file
 			Log::ALL & ~Log::DEBUG,
-			array('plg_system_wt_amocrm_jshopping')
+			['plg_system_wt_amocrm_jshopping']
 		);
 		$this->getApplication()->enqueueMessage($data, $priority);
 		$priority = 'Log::' . $priority;
@@ -572,4 +607,4 @@ class Wt_amocrm_jshopping extends CMSPlugin implements SubscriberInterface
 		}
 	}
 
-}//plgSystemWt_amocrm_jshopping
+}
